@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.7'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+
+group = 'com.buildrun-encurtador-link'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories { mavenCentral() }
+
+jar {
+    archiveBaseName = "encurtador-link-fbr"
+    archiveVersion = "0.0.1-SNAPSHOT"
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    from sourceSets.main.output
+}
+dependencies {
+
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.11.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+}
+
+tasks.withType(Test) { useJUnitPlatform() }
+
+tasks.named('jar') {
+    manifest {
+        attributes 'Main-Class': 'com.buildrun.encurtadorlinkfbr.StreamLambdaHandler'
+    }
+}
+
+shadowJar {
+    archiveBaseName.set("encurtador-link-fbr")
+    archiveVersion.set("0.0.1-SNAPSHOT")
+    mergeServiceFiles()
+}
+
