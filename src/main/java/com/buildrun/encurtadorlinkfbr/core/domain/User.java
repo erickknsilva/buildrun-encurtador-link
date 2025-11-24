@@ -1,0 +1,30 @@
+package com.buildrun.encurtadorlinkfbr.core.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+
+@Getter
+@Setter
+public class User {
+
+    private UUID userId;
+    private String email;
+    private String password;
+    private String nickName;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
+
+
+    public User(String email, String nickname, String password) {
+        this.userId = UUID.randomUUID();
+        this.email = email;
+        this.nickName = nickname;
+        this.password = password;
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+}

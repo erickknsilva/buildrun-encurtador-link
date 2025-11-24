@@ -20,13 +20,26 @@ jar {
 }
 dependencies {
 
+    // AWS SDK v2 BOM
     implementation platform('software.amazon.awssdk:bom:2.25.63')
-    implementation 'software.amazon.awssdk:dynamodb:2.25.63'
+
+    // Spring Cloud AWS 3.x (compatível com Boot 3)
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter:3.4.1'
+
+    // DynamoDB (SDK v2)
+    implementation 'software.amazon.awssdk:dynamodb'
+    implementation 'software.amazon.awssdk:dynamodb-enhanced'
+
+    // Lambda
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.0'
+    implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.1'
+
+    // Spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.1'
+
+    compileOnly 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
