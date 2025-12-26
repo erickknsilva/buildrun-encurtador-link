@@ -1,0 +1,19 @@
+# Gradle
+.gradle/
+build/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# LocalStack (ambiente local)
+localstack/
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.swp
+
+# Outros arquivos de sistema
+.DS_Store

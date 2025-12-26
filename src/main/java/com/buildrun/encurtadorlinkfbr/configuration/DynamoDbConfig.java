@@ -18,7 +18,7 @@ public class DynamoDbConfig {
     public DynamoDbEnhancedClient dynamoDbEnhancedClient() {
 
         DynamoDbClient dynamoDbClient = DynamoDbClient.builder()
-                .endpointOverride(URI.create("http://localhost:4566"))
+                .endpointOverride(URI.create("http://localstack:4566"))
                 .region(Region.SA_EAST_1)
                 .build();
 

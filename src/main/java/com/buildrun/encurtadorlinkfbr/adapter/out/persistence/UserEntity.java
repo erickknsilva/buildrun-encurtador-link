@@ -6,7 +6,6 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttri
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-import javax.swing.text.html.parser.Entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -67,7 +66,5 @@ public class UserEntity {
     public LocalDateTime getUpdateAt() {
         return updateAt;
     }
-
-
 
 }

@@ -7,17 +7,10 @@ plugins {
 
 group = 'com.buildrun-encurtador-link'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '21'
 
 repositories { mavenCentral() }
 
-jar {
-    archiveBaseName = "encurtador-link-fbr"
-    archiveVersion = "0.0.1-SNAPSHOT"
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
-    from sourceSets.main.output
-}
 dependencies {
 
     // AWS SDK v2 BOM
@@ -38,15 +31,21 @@ dependencies {
     // Spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-resource-server'
 
     compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-security-oauth2-resource-server-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
 
 }
 
 java {
-    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
 }
 
 tasks.withType(Test) { useJUnitPlatform() }

@@ -1,6 +1,8 @@
 package com.buildrun.encurtadorlinkfbr.core.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +11,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     private UUID userId;
@@ -27,4 +31,6 @@ public class User {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
     }
+
+
 }

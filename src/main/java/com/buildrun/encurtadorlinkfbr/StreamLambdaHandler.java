@@ -18,7 +18,7 @@ public class StreamLambdaHandler implements RequestStreamHandler {
     static {
         try {
             handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(
-                    EncurtadorLinkFbrApplication.class // <-- AGORA ESTÁ CERTO
+                    EncurtadorLinkFbrApplication.class
             );
         } catch (ContainerInitializationException e) {
             throw new RuntimeException("Could not initialize Spring Boot application", e);
