@@ -9,7 +9,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.buildrun.encurtadorlinkfbr.StreamLambdaHandler
-      Runtime: java17
+      Runtime: java21
       CodeUri: MyServiceFunction
       MemorySize: 512
       Policies: AWSLambdaBasicExecutionRole
