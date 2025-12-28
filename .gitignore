@@ -17,3 +17,4 @@ localstack/
 
 # Outros arquivos de sistema
 .DS_Store
+.gitignore

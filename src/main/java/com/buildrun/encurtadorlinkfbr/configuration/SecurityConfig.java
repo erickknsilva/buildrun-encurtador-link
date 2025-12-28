@@ -1,13 +1,23 @@
 package com.buildrun.encurtadorlinkfbr.configuration;
 
+import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -15,18 +25,46 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    private final JwtConfig jwtConfig;
+
+    public SecurityConfig(JwtConfig jwtConfig) {
+        this.jwtConfig = jwtConfig;
+    }
+
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http ) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable)
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                            .anyRequest().authenticated();
+                })
+                .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth->{
-            auth.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
-                    .anyRequest().authenticated();
-        }).build();
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
+                .build();
+    }
+
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        NimbusJwtDecoder decoder = NimbusJwtDecoder.withPublicKey(jwtConfig.getPublicKey()).build();
+//        decoder.setJwtValidator(validator); JwtBlocklistValidator validator
+        return decoder;
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public JwtEncoder jwtEncoder() {
+        // Configure the JWT encoder with the private key from JwtConfig
+        JWK jwk = new RSAKey.Builder(jwtConfig.getPublicKey()).privateKey(jwtConfig.getPrivateKey()).build();
+        var jwkSet = new ImmutableJWKSet<>(new JWKSet(jwk));
+
+        return new NimbusJwtEncoder(jwkSet);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

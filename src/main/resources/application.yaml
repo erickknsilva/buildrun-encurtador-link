@@ -3,3 +3,18 @@ server:
 spring:
   main:
     banner-mode: off
+
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+
+jwt:
+  public:
+    key: classpath:app.pub
+  private:
+    key: classpath:app.key
+  issuer: encurtador-link-fbr
+  expires-in: 240
+  refresh:
+    expires-in: 2592000
