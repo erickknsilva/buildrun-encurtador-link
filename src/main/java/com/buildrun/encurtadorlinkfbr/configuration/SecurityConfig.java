@@ -37,6 +37,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                             .anyRequest().authenticated();
                 })
                 .csrf(AbstractHttpConfigurer::disable)
@@ -45,7 +46,6 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
                 .build();
     }
-
 
     @Bean
     public JwtDecoder jwtDecoder() {
@@ -67,4 +67,5 @@ public class SecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

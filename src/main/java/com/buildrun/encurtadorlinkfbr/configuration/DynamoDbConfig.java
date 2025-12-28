@@ -30,7 +30,12 @@ public class DynamoDbConfig {
 
 
     @Bean
-    public DynamoDbTable<UserEntity> linkTable(DynamoDbEnhancedClient enhancedClient) {
+    public  DynamoDbTable<UserEntity> userTable(DynamoDbEnhancedClient enhancedClient) {
         return enhancedClient.table("tb_users", TableSchema.fromBean(UserEntity.class));
     }
+
+//    @Bean public DynamoDbTable<LinkEntity> linkTable(DynamoDbEnhancedClient enhancedClient) {
+//        return enhancedClient.table("tb_links", TableSchema.fromBean(LinkEntity.class));
+//    }
+
 }

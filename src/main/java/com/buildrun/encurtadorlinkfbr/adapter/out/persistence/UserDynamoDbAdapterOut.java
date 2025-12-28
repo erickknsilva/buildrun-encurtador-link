@@ -2,10 +2,14 @@ package com.buildrun.encurtadorlinkfbr.adapter.out.persistence;
 
 import com.buildrun.encurtadorlinkfbr.core.domain.User;
 import com.buildrun.encurtadorlinkfbr.core.port.out.UserRepositoryPortOut;
-import org.springframework.context.annotation.Bean;
+import jakarta.annotation.Nonnull;
 import org.springframework.stereotype.Component;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+
+import java.util.Optional;
 
 @Component
 public class UserDynamoDbAdapterOut implements UserRepositoryPortOut {
@@ -27,5 +31,37 @@ public class UserDynamoDbAdapterOut implements UserRepositoryPortOut {
         return user;
     }
 
+    @Override
+    public Optional<User> findByEmail(String email) {
+
+        var conditional = getQueryConditional(email);
+        var query = getQueryEnhancedRequest(conditional);
+
+        var emailIndex = dynamoDbTable.index("email-index");
+
+        var results = emailIndex.query(query);
+
+        return results.stream()
+                .flatMap(p -> p.items().stream())
+                .map(UserEntity::toDomain)
+                .findFirst();
+
+    }
+
+
+    @Nonnull
+    private static QueryConditional getQueryConditional(String email) {
+       return QueryConditional.keyEqualTo(
+                k -> k.partitionValue(AttributeValue.builder().s(email)
+                        .build()));
+
+    }
+
+    @Nonnull
+    private static QueryEnhancedRequest getQueryEnhancedRequest(QueryConditional conditional) {
+        return QueryEnhancedRequest.builder()
+                .queryConditional(conditional)
+                .build();
+    }
 
 }
