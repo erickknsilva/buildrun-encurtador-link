@@ -5,6 +5,7 @@ import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondaryPartitionKey;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class UserEntity {
 
     private LocalDateTime updateAt;
 
-    public static UserEntity fromDomain(User user){
+    public static UserEntity fromDomain(User user) {
         UserEntity entity = new UserEntity();
 
         entity.setUserId(user.getUserId());
@@ -37,12 +38,20 @@ public class UserEntity {
         return entity;
     }
 
+    public User toDomain() {
+        return new User(
+                this.userId, this.email, this.password, this.nickName, this.createAt, this.updateAt
+        );
+    }
+
+
     @DynamoDbPartitionKey
     @DynamoDbAttribute("user_id")
     public UUID getUserId() {
         return userId;
     }
 
+    @DynamoDbSecondaryPartitionKey(indexNames = "email-index")
     @DynamoDbAttribute("email")
     public String getEmail() {
         return email;
@@ -52,6 +61,7 @@ public class UserEntity {
     public String getPassword() {
         return password;
     }
+
     @DynamoDbAttribute("nick_name")
     public String getNickName() {
         return nickName;
