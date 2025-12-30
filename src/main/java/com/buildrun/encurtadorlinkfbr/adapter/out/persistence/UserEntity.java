@@ -2,6 +2,7 @@ package com.buildrun.encurtadorlinkfbr.adapter.out.persistence;
 
 import com.buildrun.encurtadorlinkfbr.core.domain.User;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
@@ -25,6 +26,9 @@ public class UserEntity {
     private LocalDateTime createAt;
 
     private LocalDateTime updateAt;
+
+
+
 
     public static UserEntity fromDomain(User user) {
         UserEntity entity = new UserEntity();
@@ -76,5 +80,7 @@ public class UserEntity {
     public LocalDateTime getUpdateAt() {
         return updateAt;
     }
+
+
 
 }

@@ -1,4 +1,4 @@
-package com.buildrun.encurtadorlinkfbr.adapter.in.web;
+package com.buildrun.encurtadorlinkfbr.adapter.in.web.controller;
 
 import com.buildrun.encurtadorlinkfbr.adapter.in.web.dto.LoginRequest;
 import com.buildrun.encurtadorlinkfbr.adapter.in.web.dto.LoginResponse;

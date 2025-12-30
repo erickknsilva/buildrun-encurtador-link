@@ -3,7 +3,7 @@ package com.buildrun.encurtadorlinkfbr.core.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 
-public class UserAlreadyExistException extends DomainException{
+public class UserAlreadyExistException extends ToDomainException {
 
     @Override
     public ProblemDetail toProblemDetail() {

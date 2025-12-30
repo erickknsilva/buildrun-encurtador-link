@@ -1,4 +1,7 @@
 package com.buildrun.encurtadorlinkfbr.adapter.in.web.dto;
 
-public record LoginRequest() {
+public record LoginRequest(
+        String email,
+        String password
+) {
 }

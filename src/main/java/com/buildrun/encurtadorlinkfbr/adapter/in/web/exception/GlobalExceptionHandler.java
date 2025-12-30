@@ -1,6 +1,6 @@
-package com.buildrun.encurtadorlinkfbr.adapter.in.web;
+package com.buildrun.encurtadorlinkfbr.adapter.in.web.exception;
 
-import com.buildrun.encurtadorlinkfbr.core.exception.DomainException;
+import com.buildrun.encurtadorlinkfbr.core.exception.ToDomainException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.validation.FieldError;
@@ -13,10 +13,11 @@ import java.util.HashMap;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(DomainException.class)
-    public ProblemDetail userAlreadyExistException(DomainException ex) {
+    @ExceptionHandler(ToDomainException.class)
+    public ProblemDetail handleDomainException(ToDomainException ex) {
         return ex.toProblemDetail();
     }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ProblemDetail handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -34,7 +35,6 @@ public class GlobalExceptionHandler {
         problem.setTitle("Your request is invalid.");
         problem.setProperty("invalid-params", errors);
 
-//        return errors;
         return problem;
     }
 

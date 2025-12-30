@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -31,6 +32,7 @@ public class User {
         this.createAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
     }
+
 
 
 }

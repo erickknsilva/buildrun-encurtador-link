@@ -1,6 +1,6 @@
 package com.buildrun.encurtadorlinkfbr;
 
-import com.buildrun.encurtadorlinkfbr.adapter.in.web.UserControllerAdapterIn;
+import com.buildrun.encurtadorlinkfbr.adapter.in.web.controller.UserControllerAdapterIn;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
