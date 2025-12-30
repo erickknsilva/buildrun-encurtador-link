@@ -7,8 +7,6 @@ build/
 *.iml
 .vscode/
 
-# LocalStack (ambiente local)
-localstack/
 
 # Logs e arquivos temporários
 *.log
@@ -17,4 +15,3 @@ localstack/
 
 # Outros arquivos de sistema
 .DS_Store
-.gitignore
