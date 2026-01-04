@@ -12,7 +12,6 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
-import java.time.LocalDate;
 
 @Component
 public class AuthenticationUseCase implements AuthenticatePortIn {

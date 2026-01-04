@@ -86,3 +86,10 @@ aws --endpoint-url="http://localhost:4566" dynamodb create-table \
   --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5 \
   --query 'TableDescription.TableName' \
   --output text
+
+#echo "Running in DEBUG MODE"
+#sam local start-api \
+#    --port 3001 \
+#    --docker-network sam-local-net \
+#    --debug-port 5005 \
+#    --debug-args "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"

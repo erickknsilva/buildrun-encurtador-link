@@ -1,5 +1,6 @@
 package com.buildrun.encurtadorlinkfbr.configuration;
 
+import com.buildrun.encurtadorlinkfbr.adapter.out.persistence.LinkEntity;
 import com.buildrun.encurtadorlinkfbr.adapter.out.persistence.UserEntity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,17 +26,17 @@ public class DynamoDbConfig {
         return DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(dynamoDbClient)
                 .build();
-
     }
 
-
     @Bean
-    public  DynamoDbTable<UserEntity> userTable(DynamoDbEnhancedClient enhancedClient) {
+    public DynamoDbTable<UserEntity> userTable(DynamoDbEnhancedClient enhancedClient) {
         return enhancedClient.table("tb_users", TableSchema.fromBean(UserEntity.class));
     }
 
-//    @Bean public DynamoDbTable<LinkEntity> linkTable(DynamoDbEnhancedClient enhancedClient) {
-//        return enhancedClient.table("tb_links", TableSchema.fromBean(LinkEntity.class));
-//    }
+    @Bean
+    public DynamoDbTable<LinkEntity> linkTable(DynamoDbEnhancedClient enhancedClient) {
+        return enhancedClient.table("tb_user_links", TableSchema.fromBean(LinkEntity.class));
+    }
+
 
 }

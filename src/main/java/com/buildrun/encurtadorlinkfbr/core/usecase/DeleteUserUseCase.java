@@ -5,8 +5,6 @@ import com.buildrun.encurtadorlinkfbr.core.port.in.DeleteUserPortIn;
 import com.buildrun.encurtadorlinkfbr.core.port.out.UserRepositoryPortOut;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class DeleteUserUseCase implements DeleteUserPortIn {
 
@@ -24,4 +22,6 @@ public class DeleteUserUseCase implements DeleteUserPortIn {
 
         userRepositoryPortOut.deleteById(email);
     }
+
+
 }
