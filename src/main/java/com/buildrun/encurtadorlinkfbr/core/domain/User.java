@@ -33,6 +33,9 @@ public class User {
         this.updateAt = LocalDateTime.now();
     }
 
+    public User(UUID userId) {
+        this.userId = userId;
+    }
 
 
 }
