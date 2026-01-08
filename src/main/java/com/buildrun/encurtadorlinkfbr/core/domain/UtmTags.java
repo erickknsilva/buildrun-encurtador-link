@@ -16,4 +16,9 @@ public class UtmTags {
     private String umtCampaign;
     private String utmContent;
 
+    public static UtmTags toDomain(UtmTags tags){
+        return new UtmTags(tags.getUtmSource(),tags.getUtmMedium(),tags.getUmtCampaign(),tags.getUtmContent());
+    }
+
+
 }

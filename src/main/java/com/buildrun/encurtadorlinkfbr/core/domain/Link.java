@@ -1,5 +1,6 @@
 package com.buildrun.encurtadorlinkfbr.core.domain;
 
+import com.buildrun.encurtadorlinkfbr.adapter.out.persistence.LinkEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Link {
     private LocalDateTime expirationDateTime;
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
+
 
 
 }

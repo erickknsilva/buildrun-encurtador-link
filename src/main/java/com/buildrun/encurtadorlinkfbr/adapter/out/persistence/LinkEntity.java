@@ -1,6 +1,8 @@
 package com.buildrun.encurtadorlinkfbr.adapter.out.persistence;
 
 import com.buildrun.encurtadorlinkfbr.core.domain.Link;
+import com.buildrun.encurtadorlinkfbr.core.domain.User;
+import com.buildrun.encurtadorlinkfbr.core.domain.UtmTags;
 import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
@@ -107,10 +109,17 @@ public class LinkEntity {
         return entity;
     }
 
-    public Link toDomain() {
-        return null;
+    public Link toDomain(LinkEntity link) {
+        UtmTags tags = new UtmTags(link.getUtmSource(), link.getUtmMedium(), link.getUmtCampaign(), link.getUtmContent());
+        User user= new User(link.getUserId());
 
+        return  new Link(link.getLinkId(),
+                link.getOriginalUrl(),
+                tags,user,link.isActive(),
+                link.getExpirationDateTime(),
+                link.getCreateAt(),link.getUpdateAt());
     }
+
 
     class Constants {
         public static final String FK_USER_INDEX = "fk-user-index";

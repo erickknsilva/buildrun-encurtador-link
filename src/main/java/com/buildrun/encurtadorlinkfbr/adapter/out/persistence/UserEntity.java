@@ -30,6 +30,10 @@ public class UserEntity {
     public UserEntity() {
     }
 
+    public UserEntity(UUID userId) {
+        this.userId = userId;
+    }
+
     public static UserEntity fromDomain(User user) {
         UserEntity entity = new UserEntity();
 
